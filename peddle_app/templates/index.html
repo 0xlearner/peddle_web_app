@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask HTMX</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.make_year(**{"hx-get": "/get_cars", "hx-target": "#car"}) }}
+        {{ form.car(**{"hx-get": "/get_car_models", "hx-target": "#car_model"}) }}
+        {{ form.car_model }}
+        <button>Submit</button>
+    </form>
+    {% if price %}
+    <p id="text">{{ price }}</p>
+    {% endif %}
+</body>
+</html>
